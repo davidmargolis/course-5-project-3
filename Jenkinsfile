@@ -1,31 +1,36 @@
 #!/usr/bin/env groovy
 
-pipeline {
-  stages {
-    node {
-      stage 'Initialize'
-      checkout scm
+node {
+  stage 'Initialize'{
+    checkout scm
+  }
 
-      stage 'Build'
-      def customImage = docker.build("course-5-project-3:latest")
+  stage 'Build' {
+    def image = docker.build 'dmm2168/course-5-project-3:latest'
+  }
 
-      stage 'Test'
-      testContainer.withRun('--name dmm2168/course-5-project-3-test') {c ->
-        sh '''
-          docker cp test_app.py test:/ \
-            && docker exec test python -m unittest
-        '''
-      }
-
-      stage 'Deploy'
-      def containerID = docker.inspect('course-5-project-3', '.Id')
-      if (containerID) {
-        docker.stop(containerID)
-      }
-      customImage.run('--name course-5-project-3')
-
-      stage 'Release'
-      customImage.push()
+  stage 'Test' {
+    image.withRun() {container ->
+      sh """
+        docker cp test_app.py ${container.id} \
+          && docker exec ${container.id} python -m unittest
+      """
     }
+  }
+
+  stage 'Deploy' {
+    environment {
+      CONTAINER_NAME = "my-container"
+    }
+
+    def containerID = docker.inspect("$CONTAINER_NAME", '.Id')
+    if (containerID) {
+      docker.stop containerID // also removes it
+    }
+    image.run "--name $CONTAINER_NAME"
+  }
+
+  stage 'Release' {
+    image.push
   }
 }
