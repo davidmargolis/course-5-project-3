@@ -1,11 +1,7 @@
 #!/usr/bin/env groovy
 
 pipeline {
-  node {
-    stage 'Initialize'{
-      checkout scm
-    }
-
+  stages {
     stage 'Build' {
       def image = docker.build 'dmm2168/course-5-project-3:latest'
     }
