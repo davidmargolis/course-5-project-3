@@ -28,11 +28,12 @@ pipeline {
 
     stage('Deploy') {
       steps {
+        sh """
+          $(docker inspect -f '{{.ID}}' my-container 2>/dev/null) \
+            && docker rm -f my-container \
+            || true
+        """
         script {
-          containerID = docker.inspect("my-container", '.Id')
-          if (containerID) {
-            docker.stop(containerID) // also removes it
-          }
           image.run("--name my-container")
         }
       }
