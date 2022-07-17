@@ -1,12 +1,14 @@
 #!/usr/bin/env groovy
 
+def image
+
 pipeline {
   agent any
   stages {
     stage('Build') {
       steps {
         script {
-          def image = docker.build('dmm2168/course-5-project-3:latest')
+          image = docker.build('dmm2168/course-5-project-3:latest')
         }
       }
     }
