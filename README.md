@@ -93,7 +93,7 @@ assistance of the strategy.
         ```
         mv /mnt/c/Users/david/Downloads/jenkins_on_ec2.pem ~/.ssh \
         && chmod 400 ~/.ssh/jenkins_on_ec2.pem \
-        && ssh -i ~/.ssh/jenkins_on_ec2.pem ec2-user@ec2-54-165-149-225.compute-1.amazonaws.com
+        && ssh -i ~/.ssh/jenkins_on_ec2.pem ec2-user@ec2-18-212-163-128.compute-1.amazonaws.com
         ```
     1. Install docker, git, java 11, and jenkins on EC2
         ```
@@ -108,38 +108,41 @@ assistance of the strategy.
         ```
     1. Get jenkins password:
         ```
-        cat /var/lib/jenkins/secrets/initialAdminPassword
+        sudo cat /var/lib/jenkins/secrets/initialAdminPassword
         ```
 1. Configure Jenkins
-    1. Log into Jenkins <http://ec2-54-165-149-225.compute-1.amazonaws.com:8080/> using password revealed from the last step
-    1. Choose `Install standard plugins`
-    1. Add [Docker plugin](https://plugins.jenkins.io/docker-plugin/) and [Docker Pipeline plugin](https://plugins.jenkins.io/docker-workflow/)
+    1. Log into Jenkins <http://ec2-18-212-163-128.compute-1.amazonaws.com:8080/> using password revealed from the last step
+        1. Choose `Install standard plugins`
+        1. Choose `Skip and continue as admin`
+        1. Choose `Save and Finish`
+        1. Choose `Start using Jenkins`
+    1. Add [Docker plugin](https://plugins.jenkins.io/docker-plugin/) and [Docker Pipeline plugin](https://plugins.jenkins.io/docker-workflow/) using [Jenkins Plugin Manager](http://ec2-18-212-163-128.compute-1.amazonaws.com:8080/pluginManager/available)
     1. Add GitHub Server
-        1. [Configure System](http://ec2-54-165-149-225.compute-1.amazonaws.com:8080/configure)
+        1. [Configure System](http://ec2-18-212-163-128.compute-1.amazonaws.com:8080/configure)
         1. Click `Add GitHub Server` -> `GitHub Server`
         1. Click `Save`
     1. Expand access
-        1. [Configure Global Security](http://ec2-54-165-149-225.compute-1.amazonaws.com:8080/configureSecurity/)
+        1. [Configure Global Security](http://ec2-18-212-163-128.compute-1.amazonaws.com:8080/configureSecurity/)
         1. Choose `Authorization` - `Anyone can do anything`
         1. Click `Save`
-    1. [Create new job](http://ec2-54-165-149-225.compute-1.amazonaws.com:8080/view/all/newJob)
+    1. [Create new job](http://ec2-18-212-163-128.compute-1.amazonaws.com:8080/view/all/newJob)
         1. `Enter an item name` - `course-5-project-3`
         1. Select `Pipeline`
         1. Click `OK`
         1. Check <input type="checkbox" checked> `Discard old builds`
         1. Check <input type="checkbox" checked> `GitHub project`
-        1. `Project url` - <https://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@github.com/davidmargolis/course-5-project-3.git>
+        1. `Project url` - <https://<GITHUB_ACCESS_TOKEN>@github.com/davidmargolis/course-5-project-3.git>
         1. Check <input type="checkbox" checked> `GitHub hook trigger for GITScm polling`
             1. `Definition` - `Pipeline script from SCM`
             1. `SCM` - `Git`
-            1. `Repository URL` - <https://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@github.com/davidmargolis/course-5-project-3.git>
+            1. `Repository URL` - <https://<GITHUB_ACCESS_TOKEN>@github.com/davidmargolis/course-5-project-3.git>
         1. Click `Save`
     1. [Add webhook](https://github.com/davidmargolis/course-5-project-3/settings/hooks/new) in GitHub:
-        1. `Payload URL` - <http://ec2-54-165-149-225.compute-1.amazonaws.com:8080/github-webhook/>
-        1. `Content type` - `application/type`
+        1. `Payload URL` - <http://ec2-18-212-163-128.compute-1.amazonaws.com:8080/github-webhook/>
+        1. `Content type` - `application/x-www-form-urlencoded`
 
 ### Run Jenkins Pipeline
 
 1. Push a change to git repo to trigger pipeline
-1. See pipeline is run automatically <http://ec2-54-165-149-225.compute-1.amazonaws.com:8080/job/course-5-project-3/>
-1. See tomcat server is deployed <http://ec2-54-165-149-225.compute-1.amazonaws.com:8081/course-5-project-3/>
+1. See pipeline is run automatically <http://ec2-18-212-163-128.compute-1.amazonaws.com:8080/job/course-5-project-3/>
+1. See tomcat server is deployed <http://ec2-18-212-163-128.compute-1.amazonaws.com:8081/course-5-project-3/>
