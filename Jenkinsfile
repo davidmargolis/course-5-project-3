@@ -29,7 +29,7 @@ pipeline {
     stage('Deploy') {
       steps {
         sh """
-          $(docker inspect -f '{{.ID}}' my-container 2>/dev/null) \
+          docker inspect -f '{{.ID}}' my-container 2>/dev/null \
             && docker rm -f my-container \
             || true
         """
