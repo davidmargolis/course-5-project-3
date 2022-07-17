@@ -102,9 +102,8 @@ assistance of the strategy.
             && sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key \
             && sudo amazon-linux-extras install docker java-openjdk11 -y \
             && sudo yum install git jenkins maven -y \
-            && sudo systemctl enable jenkins \
-            && sudo systemctl start jenkins \
-            && sudo systemctl status jenkins
+            && sudo systemctl enable docker jenkins \
+            && sudo systemctl start docker jenkins
         ```
     1. Get jenkins password:
         ```
@@ -140,7 +139,7 @@ assistance of the strategy.
         1. Click `Save`
     1. [Add webhook](https://github.com/davidmargolis/course-5-project-3/settings/hooks/new) in GitHub:
         1. `Payload URL` - <http://ec2-18-212-163-128.compute-1.amazonaws.com:8080/github-webhook/>
-        1. `Content type` - `application/x-www-form-urlencoded`
+        1. `Content type` - `application/json`
 
 ### Run Jenkins Pipeline
 
