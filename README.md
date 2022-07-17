@@ -128,11 +128,11 @@ assistance of the strategy.
         1. Click `OK`
         1. Check <input type="checkbox" checked> `Discard old builds`
         1. Check <input type="checkbox" checked> `GitHub project`
-        1. `Project url` - <https://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@github.com/davidmargolis/course-5-project-3.git>
+        1. `Project url` - <https://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@github.com/davidmargolis/course-5-project-3.git>
         1. Check <input type="checkbox" checked> `GitHub hook trigger for GITScm polling`
             1. `Definition` - `Pipeline script from SCM`
             1. `SCM` - `Git`
-            1. `Repository URL` - <https://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@github.com/davidmargolis/course-5-project-3.git>
+            1. `Repository URL` - <https://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@github.com/davidmargolis/course-5-project-3.git>
         1. Click `Save`
     1. [Add webhook](https://github.com/davidmargolis/course-5-project-3/settings/hooks/new) in GitHub:
         1. `Payload URL` - <http://ec2-54-165-149-225.compute-1.amazonaws.com:8080/github-webhook/>
