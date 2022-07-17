@@ -136,6 +136,7 @@ assistance of the strategy.
             1. `Definition` - `Pipeline script from SCM`
             1. `SCM` - `Git`
             1. `Repository URL` - <https://<GITHUB_ACCESS_TOKEN>@github.com/davidmargolis/course-5-project-3.git>
+            1. `Branch specifier` - `*/main`
         1. Click `Save`
     1. [Add webhook](https://github.com/davidmargolis/course-5-project-3/settings/hooks/new) in GitHub:
         1. `Payload URL` - <http://ec2-18-212-163-128.compute-1.amazonaws.com:8080/github-webhook/>
