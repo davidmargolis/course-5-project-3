@@ -29,7 +29,7 @@ pipeline {
     stage('Deploy') {
       steps {
         script {
-          def containerID = docker.inspect("my-container", '.Id')
+          containerID = docker.inspect("my-container", '.Id')
           if (containerID) {
             docker.stop(containerID) // also removes it
           }
