@@ -26,13 +26,18 @@ pipeline {
       }
     }
 
-    stage('Deploy') {
+    stage('Cleanup') {
       steps {
         sh """
           docker inspect -f '{{.ID}}' my-container 2>/dev/null \
             && docker rm -f my-container \
             || true
         """
+      }
+    }
+
+    stage('Deploy') {
+      steps {
         script {
           image.run("--name my-container")
         }
@@ -42,6 +47,10 @@ pipeline {
     stage('Release') {
       steps {
         script {
+          sh """
+          docker login -u dmm2168 --password=c2a46d35-2300-4ffe-961a-4d9a36474221
+          docker push my-container:latest
+          """
           image.push()
         }
       }

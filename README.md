@@ -51,6 +51,10 @@ assistance of the strategy.
 
 ## Solution
 
+### Setup Docker
+
+- [Generate new access token](https://hub.docker.com/settings/security?generateToken=true) 
+
 ### Setup Github
 
 - [Create course-3-project-5 repo](https://github.com/davidmargolis/course-3-project-5) in Github
