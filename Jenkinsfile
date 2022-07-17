@@ -48,9 +48,9 @@ pipeline {
       steps {
         script {
           sh """
-          docker login -u dmm2168 --password=c2a46d35-2300-4ffe-961a-4d9a36474221 \
-            && docker push my-container:latest
+          docker login -u dmm2168 --password=c2a46d35-2300-4ffe-961a-4d9a36474221
           """
+          image.push()
         }
       }
     }
