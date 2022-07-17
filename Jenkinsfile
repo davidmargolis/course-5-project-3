@@ -27,16 +27,13 @@ pipeline {
     }
 
     stage('Deploy') {
-      environment {
-        CONTAINER_NAME = "my-container"
-      }
       steps {
         script {
-          def containerID = docker.inspect("$CONTAINER_NAME", '.Id')
+          def containerID = docker.inspect("my-container", '.Id')
           if (containerID) {
             docker.stop(containerID) // also removes it
           }
-          image.run("--name $CONTAINER_NAME")
+          image.run("--name my-container")
         }
       }
     }
