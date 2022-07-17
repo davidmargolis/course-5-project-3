@@ -18,7 +18,7 @@ pipeline {
         script {
           image.withRun() {container ->
             sh """
-              docker cp test_app.py ${container.id} \
+              docker cp test_app.py ${container.id}:/ \
                 && docker exec ${container.id} python -m unittest
             """
           }
